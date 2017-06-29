@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const logger = require('morgan');
 const path = require('path');
 const open = require('open');
@@ -10,7 +11,7 @@ if (NODE_ENV !== 'development') {
 }
 
 const app = express();
-
+app.use(cors());
 
 app.use(logger('dev'));
 
