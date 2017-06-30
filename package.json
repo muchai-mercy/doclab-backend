@@ -9,13 +9,10 @@
   },
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
-    "start": "npm-run-all --parallel open:client lint:watch",
     "start:dev": "nodemon ./bin/www",
-    "open:client": "babel-node app.js",
     "pretest": "NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "test": "export NODE_ENV=test && npm run test:back",
-    "test:front": "istanbul cover _mocha **.js --require tools/testSetup.js -R client/tests/**",
-    "test:back": "istanbul cover _mocha **.js -R ./tests/*.js --timeout 30000",
+    "test:back": "istanbul cover _mocha **.js -R ./tests/*.js --timeout=30000",
     "test:watch": "npm run test -- --watch"
   },
   "author": "Muchai",
