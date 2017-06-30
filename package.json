@@ -13,7 +13,8 @@
     "pretest": "NODE_ENV=test && sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "test": "export NODE_ENV=test && npm run test:back",
     "test:back": "istanbul cover _mocha **.js -R ./tests/*.js --timeout=30000",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "postinstall": "sequelize db:migrate"
   },
   "author": "Muchai",
   "license": "ISC",
