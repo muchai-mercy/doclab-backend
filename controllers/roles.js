@@ -36,12 +36,12 @@ module.exports = {
 
   // retrieve roles by Id
   retrieve(req, res) {
+    console.log(req.params.role)
     return Role
-      .findById(req.params.role, {
-        include: [{
-          model: Users,
-          as: 'role'
-        }]
+      .findOne({
+        where: {
+          role: req.params.role
+        }
       })
       .then(role => {
         if (!role) {
@@ -59,7 +59,7 @@ module.exports = {
   // update role details
   update(req, res) {
     return Role
-      .findById(req.params.roleId)
+      .findById(req.params.role)
       .then(role => {
         if (!role) {
           res.status(404).send({

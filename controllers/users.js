@@ -64,7 +64,8 @@ module.exports = {
           message: 'Successfully logged in',
           token,
           username: user.username,
-          id: user.id
+          id: user.id,
+          role: user.role
         });
 
       });
