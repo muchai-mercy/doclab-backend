@@ -23,27 +23,48 @@ module.exports = {
   //list all existing documents 
   list(req, res) {
     let documentQuery = {};
+              
       // if not admin get only the docs belonging to the authenticated user
     if(req.decoded.data.role !== "Admin"){
       documentQuery["where"] = {$or: [{userId: req.decoded.data.id},{
           category: req.decoded.data.role
         }]
-      };
-    }
+      }
     if (req.query.limit || req.query.offset) {
+      documentQuery["offset"] = req.query.offset;
+      documentQuery["limit"] = req.query.limit;
+      return Document.findAll({
+        documentQuery,
+        where: {$or: [{userId: req.decoded.data.id},{
+          category: req.decoded.data.role
+        }]
+      }})
+        .then(document => {
+          if( !document || document.length < 1) {
+            return res.status(404).send({
+              message: 'No Document found'
+            });
+          }
+          return res.status(200).send(document)})
+        .catch(error => res.status(400).send(error));
+    }
+    return Document
+      .findAll(documentQuery)
+      .then(document => res.status(200).send(document))
+      .catch(error => res.status(400).send(error));
+    } else {
+      if (req.query.limit || req.query.offset) {
       documentQuery["offset"] = req.query.offset;
       documentQuery["limit"] = req.query.limit;
       return Document.findAll(documentQuery)
         .then(document => res.status(200).send(document))
         .catch(error => res.status(400).send(error));
     }
-    
-    console.log(documentQuery, 'documentertyui')
     return Document
       .findAll(documentQuery)
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
-    
+    }
   },
   
   //retrieve documents by Id
