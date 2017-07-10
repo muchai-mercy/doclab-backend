@@ -3,13 +3,14 @@ module.exports = (sequelize, DataTypes) => {
   const Roles = sequelize.define('Roles', {
     role: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true,
     },
   }, {
       classMethods: {
         associate: (models) => {
           Roles.hasMany(models.Users, {
-            foreignKey: 'roleId',
+            foreignKey: 'role',
             as: 'users'
           });
         }

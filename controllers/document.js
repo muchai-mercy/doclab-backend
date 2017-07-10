@@ -1,5 +1,5 @@
 const db = require('../models');
-const Document = db.Document;
+const Document = db.Documents;
 const Users = db.Users;
 
 module.exports = {
@@ -10,8 +10,7 @@ module.exports = {
         title: req.body.title,
         content: req.body.content,
         userId: req.body.userId,
-        category: req.body.category,
-        access: req.body.access
+        category: req.body.category
       })
         .then(document => {
           res.status(201).send(document);
@@ -25,9 +24,9 @@ module.exports = {
   list(req, res) {
     let documentQuery = {};
       // if not admin get only the docs belonging to the authenticated user
-    if(req.decoded.data.role != "Admin"){
+    if(req.decoded.data.role !== "Admin"){
       documentQuery["where"] = {$or: [{userId: req.decoded.data.id},{
-          access: req.decoded.data.role
+          category: req.decoded.data.role
         }]
       };
     }
@@ -38,12 +37,15 @@ module.exports = {
         .then(document => res.status(200).send(document))
         .catch(error => res.status(400).send(error));
     }
+    
+    console.log(documentQuery, 'documentertyui')
     return Document
       .findAll(documentQuery)
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
+    
   },
-
+  
   //retrieve documents by Id
   retrieve(req, res) {
     return Document
@@ -76,8 +78,7 @@ module.exports = {
           .update({
             title: req.body.title || document.title,
             content: req.body.content || document.content,
-            category: req.body.category || document.category,
-            access: req.body.category || document.access,
+            category: req.body.category || document.category
           })
           .then(() => res.status(200).send(document))
           .catch(error => res.status(400).send(error));

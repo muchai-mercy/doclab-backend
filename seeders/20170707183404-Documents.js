@@ -6,14 +6,16 @@ module.exports = {
       content: 'test document',
       category: 'Private',
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      userId: 1
     },
     {
       title: 'Document 2',
       content: 'test document',
       category: 'Public',
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      userId: 2
     }
     ], {});
   },

@@ -3,7 +3,7 @@ const { sign } = require('jsonwebtoken');
 const secretKey = process.env.SECRET_TOKEN_KEY;
 const db = require('../models');
 const User = db.Users;
-const Document = db.Document;
+const Document = db.Documents;
 
 function generateToken(payload, secretSessionKey, expiresIn) {
   return sign({
@@ -64,8 +64,7 @@ module.exports = {
           message: 'Successfully logged in',
           token,
           username: user.username,
-          id: user.id,
-          role: user.role
+          id: user.id
         });
 
       });
@@ -133,8 +132,7 @@ module.exports = {
               lastName: req.body.lastName || user.lastName,
               username: req.body.username || user.username,
               password: hashedPassword,
-              email: req.body.email || user.email,
-              role: req.body.role || user.role
+              email: req.body.email || user.email
             })
             .then(() => res.status(200).send(user))
             .catch(error => res.status(400).send(error));
