@@ -20,10 +20,9 @@ app.use('/api', authenticate.token);
 app.get('/api/roles', rolesController.list);
 app.get('/api/get/roles/?limit={integer}&offset={integer}', rolesController.list);
 app.get('api/get/roles/:role/users', usersController.list);
-app.get('/api/roles/:role', rolesController.retrieve);
-app.put('/api/roles/:role', rolesController.update);
-app.delete('/api/roles/:role', rolesController.destroy);
-app.get('/api/roles/:role/role', rolesController.list);
+app.get('/api/roles/:id', rolesController.retrieve);
+app.put('/api/roles/:id', rolesController.update);
+app.delete('/api/roles/:id', rolesController.destroy);
 app.get('/api/search/roles/', rolesController.findByq);
 
 // authenticated users routes

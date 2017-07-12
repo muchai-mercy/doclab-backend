@@ -17,7 +17,7 @@ module.exports = {
         res.status(400).send(error);
       });
   },
-   
+
   // list all roles inclusive of their users and paginate
   list(req, res) {
     if (req.query.limit || req.query.offset) {
@@ -36,13 +36,8 @@ module.exports = {
 
   // retrieve roles by Id
   retrieve(req, res) {
-    console.log(req.params.role)
     return Role
-      .findOne({
-        where: {
-          role: req.params.role
-        }
-      })
+      .findById(req.params.id)
       .then(role => {
         if (!role) {
           res.status(404).send({
@@ -59,7 +54,7 @@ module.exports = {
   // update role details
   update(req, res) {
     return Role
-      .findById(req.params.role)
+      .findById(req.params.id)
       .then(role => {
         if (!role) {
           res.status(404).send({
@@ -68,7 +63,7 @@ module.exports = {
         }
         return role
           .update({
-             role: req.body.role|| role.role,
+            role: req.body.role || role.role,
           })
           .then(() => res.status(200).send(role))
           .catch(error => res.status(400).send(error));
@@ -77,34 +72,34 @@ module.exports = {
 
   //delete a role
   destroy(req, res) {
-  return Role
-    .findById(req.params.role)
-    .then(role => {
-      if (!role) {
-        res.status(404).send({
-          message: 'Role Not Found'
-        });
-      }
-      return role
-        .destroy({
-          role: req.body.role|| role.role,
-        })
-        .then(() => res.status(204).send())
-        .catch(error => res.status(400).send(error));
-    });
-},
+    return Role
+      .findById(req.params.role)
+      .then(role => {
+        if (!role) {
+          res.status(404).send({
+            message: 'Role Not Found'
+          });
+        }
+        return role
+          .destroy({
+            role: req.body.role || role.role,
+          })
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).send(error));
+      });
+  },
 
-//search for a role by query input
-findByq(req, res) {
-  return Role
-    .findAll({
-      where: {
-        $or: [
-          { role: { $ilike: `%${req.query.q}%` } }
-        ]
-      }
-    })
-    .then(response => res.status(200).send(response))
-    .catch(error => res.status(400).send(error));
-}
+  //search for a role by query input
+  findByq(req, res) {
+    return Role
+      .findAll({
+        where: {
+          $or: [
+            { role: { $ilike: `%${req.query.q}%` } }
+          ]
+        }
+      })
+      .then(response => res.status(200).send(response))
+      .catch(error => res.status(400).send(error));
+  }
 };
