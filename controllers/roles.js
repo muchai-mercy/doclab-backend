@@ -73,7 +73,7 @@ module.exports = {
   //delete a role
   destroy(req, res) {
     return Role
-      .findById(req.params.role)
+      .findById(req.params.id)
       .then(role => {
         if (!role) {
           res.status(404).send({
