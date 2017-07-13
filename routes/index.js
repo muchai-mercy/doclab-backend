@@ -38,7 +38,7 @@ app.get('/api/search/users/', usersController.findByq);
 //documents routes
 app.post('/api/documents', documentsController.create);
 app.get('/api/documents/', documentsController.list);
-app.get('get/documents/?limit={integer}&offset={integer}', documentsController.list);
+app.get('/api/get/documents/?limit={integer}&offset={integer}', documentsController.list);
 app.get('/api/documents/:userId', documentsController.retrieve);
 app.put('/api/documents/:userId', documentsController.update);
 app.delete('/api/documents/:userId', documentsController.destroy);
