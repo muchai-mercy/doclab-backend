@@ -160,7 +160,8 @@ module.exports = {
           lastName: req.body.lastName || user.lastName,
           username: req.body.username || user.username,
           password: req.body.password || user.password,
-          email: req.body.email || user.email
+          email: req.body.email || user.email,
+          role: req.body.role || user.role
         })
         .then(() => res.status(204).send())
         .catch(error => res.status(400).send(error));
