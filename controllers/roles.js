@@ -10,9 +10,9 @@ module.exports = {
       .create({
         role: req.body.role,
       })
-      .then(role => res.status(201).send(role), {
-        message: "Role created!"
-      })
+      .then(role => res.status(201).send({
+        message: "Role Created 😎!"
+      }))
       .catch(error => {
         res.status(400).send(error);
       });
@@ -65,7 +65,7 @@ module.exports = {
           .update({
             role: req.body.role || role.role,
           })
-          .then(() => res.status(200).send(role))
+          .then(() => res.status(200).send({message: "Role Updated 😎!"}))
           .catch(error => res.status(400).send(error));
       });
   },

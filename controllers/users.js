@@ -31,9 +31,9 @@ module.exports = {
         password: hashedPassword,
         role: req.body.role,
       })
-      .then(user => res.status(201).send(user), {
-        message: "User created!"
-      })
+      .then(user => res.status(201).send({
+        message: "User created 😎!"
+      }))
       .catch(error => {
         res.status(400).send(error);
       });
@@ -135,7 +135,7 @@ module.exports = {
               email: req.body.email || user.email,
               role: req.body.role || user.role
             })
-            .then(() => res.status(200).send(user))
+            .then(() => res.status(200).send({message: "User Updated 😎!"}))
             .catch(error => res.status(400).send(error));
         }
         return user.update();

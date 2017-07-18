@@ -13,7 +13,8 @@ module.exports = {
         category: req.body.category
       })
         .then(document => {
-          res.status(201).send(document);
+          res.status(201).send(
+            {message: 'Document Created 😎!'});
         })
           .catch(error => {
             res.status(400).send(error);
@@ -101,7 +102,7 @@ module.exports = {
             content: req.body.content || document.content,
             category: req.body.category || document.category
           })
-          .then(() => res.status(200).send(document))
+          .then(() => res.status(200).send({message: "Document Updated 😎"}))
           .catch(error => res.status(400).send(error));
       });
   },
