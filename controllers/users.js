@@ -132,7 +132,6 @@ module.exports = {
               firstName: req.body.firstName || user.firstName,
               lastName: req.body.lastName || user.lastName,
               username: req.body.username || user.username,
-              password: hashedPassword,
               email: req.body.email || user.email,
               role: req.body.role || user.role
             })

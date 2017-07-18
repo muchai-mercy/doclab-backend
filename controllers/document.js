@@ -141,7 +141,7 @@ module.exports = {
     return Document
     .findAll({
        where: {
-        category: { $iLike: 'Public' }
+        category: { $ilike: 'Public' }
       }
     })
     .then((data) => {
