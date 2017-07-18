@@ -117,11 +117,7 @@ module.exports = {
           });
         }
         return document
-          .destroy({
-            title: req.body.title || document.title,
-            content: req.body.content || document.content,
-            userId: req.body.userId || document.userId
-          })
+          .destroy()
           .then(() => res.status(204).send())
           .catch(error => res.status(400).send(error));
       });
@@ -129,10 +125,12 @@ module.exports = {
 
   //search a document by title
   findByTitle(req, res) {
+    console.log("decoded data", req.decoded);
     return Document
       .findAll({
         where: {
-          title: { $ilike: `%${req.query.q}%` }
+          title: { $ilike: `%${req.query.q}%` },
+          userId: req.decoded.data.id
         }
       })
       .then(response => res.status(200).send(response))
