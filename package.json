@@ -26,7 +26,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.17.2",
     "bootstrap": "3.3.6",
-    "dotenv": "^4.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.15.3",
     "jquery": "^3.3.1",
     "jsonwebtoken": "^7.4.1",
